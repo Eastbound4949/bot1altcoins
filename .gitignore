@@ -1,0 +1,31 @@
+# Model files are committed (pre-trained, 30 symbols — lazy training on
+# Railway boot would take ~10hr; see start.sh).
+trades_log.csv
+train_all.log
+promoted_to_live.flag
+ruvector.db
+ss/
+
+# Scratch / temp
+raw.zip
+raw_extracted/
+requirements_and_guide.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+dist/
+build/
+
+# Secrets — never commit real keys
+.env
+*.env
+config.py
+
+# OS
+.DS_Store
+Thumbs.db
