@@ -28,6 +28,22 @@ if missing:
 print("[setup] All required env vars present.")
 EOF
 
+# ── Step 2b: Copy pre-trained models from repo → DATA_DIR (fast, no training) ─
+# Models are committed to git. DATA_DIR=/data on Railway. Copy once if not present.
+if [ -n "$DATA_DIR" ] && [ "$DATA_DIR" != "." ]; then
+    echo "[setup] Copying pre-trained models from repo to $DATA_DIR..."
+    mkdir -p "$DATA_DIR"
+    for f in model_*.pkl short_model_*.pkl; do
+        [ -f "$f" ] || continue
+        dest="$DATA_DIR/$f"
+        if [ ! -f "$dest" ]; then
+            cp "$f" "$dest"
+            echo "[setup] Copied $f → $dest"
+        fi
+    done
+    echo "[setup] Model copy done."
+fi
+
 # ── Step 3: Train models if missing (runs on first deploy, ~30 min) ───────────
 python - <<'EOF'
 import os, sys
