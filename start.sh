@@ -17,9 +17,10 @@ if [ ! -f config.py ]; then
 fi
 
 # ── Step 2: Validate required env vars are set ────────────────────────────────
+# EXCHANGE=kucoin uses public OHLCV (no API key needed); only Telegram required.
 python - <<'EOF'
 import os, sys
-required = ["BINANCE_API_KEY", "BINANCE_API_SECRET", "TELEGRAM_TOKEN", "TELEGRAM_CHAT_ID"]
+required = ["TELEGRAM_TOKEN", "TELEGRAM_CHAT_ID"]
 missing = [k for k in required if not os.environ.get(k) or os.environ.get(k, "").startswith("YOUR_")]
 if missing:
     print(f"[setup] MISSING ENV VARS: {', '.join(missing)}")
